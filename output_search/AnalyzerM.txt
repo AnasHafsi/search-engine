@@ -1,0 +1,6 @@
+0 vegan Q0 null 0 3.643599 default
+1 Hard-boiled egg Q0 null 0 4.5500336 default
+2 spaghetti Q0 null 0 3.412352 default
+3 Apple Cider Q0 null 0 5.6752143 default
+4 Red Wine Q0 null 0 3.7429354 default
+5 Whole Eggs Q0 null 0 2.5370631 default

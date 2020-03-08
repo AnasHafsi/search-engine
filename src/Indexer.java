@@ -32,8 +32,8 @@ public class Indexer {
                 + " [-index INDEX_PATH] [-docs DOCS_PATH] [-update]\n\n"
                 + "This indexes the documents in DOCS_PATH, creating a Lucene index"
                 + "in INDEX_PATH that can be searched with SearchFiles";
-        String indexPath = "index";
-        String docsPath = null;
+        String indexPath = "/export/home/users/ingenieurs/info3/11810036/search-engine/output";
+        String docsPath = "/export/home/users/ingenieurs/info3/11810036/search-engine/in/";
         boolean create = true;
         for(int i=0;i<args.length;i++) {
             if ("-index".equals(args[i])) {
