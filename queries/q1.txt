@@ -1,5 +1,0 @@
-0  vegan pizza 
-1  bacon salad 
-2  beef bourguignon 
-3  gratin 
-4  peking duck 

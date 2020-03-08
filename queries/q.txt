@@ -1,20 +1,6 @@
-0  vegan 
-1  bacon salad 
-2  beef 
-3  Hard-boiled egg 
-4  backing powder
-5  black pepper 
-6  cheese fish 
-7  egg beef 
-8  spaghetti 
-9  carotte 
-10  Rice 
-11  bacon eggs 
-12  sour cream 
-13  beer 
-14  Tomato sauce 
-15 Apple Cider 
-16 Red Wine 
-17 Garlic cloves 
-18 Whole Eggs 
-19 brown sugar 
+0 vegan 
+1 Hard-boiled egg 
+2 spaghetti  
+3 Apple Cider 
+4 Red Wine  
+5 Whole Eggs 
