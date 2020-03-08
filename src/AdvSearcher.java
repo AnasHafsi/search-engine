@@ -21,6 +21,8 @@ import org.apache.lucene.search.similarities.*;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
+import analyzers.AnalyzerA;
+import analyzers.AnalyzerM;
 /** Simple command-line based search demo. */
 public class AdvSearcher {
 	private static final String INPUT_PATH = "/export/home/users/ingenieurs/info3/11810036/search-engine/in_index/";
@@ -30,10 +32,18 @@ public class AdvSearcher {
     public static List<Engine> enginesFeed()
     {
     	List<Engine> engines = new ArrayList<>();
-    	Engine simpleStopWordsWithBM25 = new Engine("Simple Words with BM25Similarity",new EnglishAnalyzer(),new BM25Similarity(),INPUT_PATH + "simplestopwords/",OUTPUT_PATH + "simple_stop_words.txt");
-    	Engine standard = new Engine("Standard with BM25Similarity", new StandardAnalyzer(),new BM25Similarity(),INPUT_PATH + "standard/",OUTPUT_PATH + "standard.txt");
+    	Engine analyzerM = new Engine("Stemmer with stopwords",new AnalyzerM(),new BM25Similarity(),INPUT_PATH +
+    			"analyzerM/",OUTPUT_PATH + "AnalyzerM.txt");
+    	Engine analyzerA = new Engine("(K) Stemmer without stopwords",new AnalyzerA(),new BM25Similarity(),INPUT_PATH +
+    			"analyzerA/",OUTPUT_PATH + "AnalyzerA.txt");
+    	Engine simpleStopWordsWithBM25 = new Engine("Simple Words with BM25Similarity",new EnglishAnalyzer(),new BM25Similarity(),INPUT_PATH +
+    			"simplestopwords/",OUTPUT_PATH + "simple_stop_words.txt");
+    	Engine standard = new Engine("Standard with BM25Similarity", new StandardAnalyzer(),new BM25Similarity(),INPUT_PATH + 
+    			"standard/",OUTPUT_PATH + "standard.txt");
     	engines.add(simpleStopWordsWithBM25);
     	engines.add(standard);
+    	engines.add(analyzerA);
+    	engines.add(analyzerM);
     	return engines;
     }
     

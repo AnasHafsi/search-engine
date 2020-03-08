@@ -1,0 +1,20 @@
+0  vegan Q0 null 0 0.8025558 default
+1  bacon salad Q0 null 0 0.5455093 default
+2  beef Q0 null 0 0.8738687 default
+3  Hard-boiled egg Q0 null 0 1.2364104 default
+4  backing powder Q0 null 0 0.8744529 default
+5  black pepper Q0 null 0 0.54622793 default
+6  cheese fish Q0 null 0 1.0563685 default
+7  egg beef Q0 null 0 1.0552472 default
+8  spaghetti Q0 null 0 0.8630647 default
+9  carotte Q0 null 0 0.6675126 default
+10  Rice Q0 null 0 0.36415768 default
+11  bacon eggs Q0 null 0 0.54329276 default
+12  sour cream Q0 null 0 1.054515 default
+13  beer Q0 null 0 0.36026698 default
+14  Tomato sauce Q0 null 0 0.54501665 default
+15 Apple Cider Q0 null 0 0.5435213 default
+16 Red Wine Q0 null 0 0.5450882 default
+17 Garlic cloves Q0 null 0 1.5614247 default
+18 Whole Eggs Q0 null 0 1.052547 default
+19 brown sugar Q0 null 0 1.050631 default
