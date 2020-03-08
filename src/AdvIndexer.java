@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.LongPoint;
@@ -24,7 +26,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-public class Indexer {
+public class AdvIndexer {
 
     /** Index all text files under a directory. */
     public static void main(String[] args) {
@@ -32,32 +34,22 @@ public class Indexer {
                 + " [-index INDEX_PATH] [-docs DOCS_PATH] [-update]\n\n"
                 + "This indexes the documents in DOCS_PATH, creating a Lucene index"
                 + "in INDEX_PATH that can be searched with SearchFiles";
-        String indexPath = "/export/home/users/ingenieurs/info3/11810036/search-engine/output";
-        String docsPath = "/export/home/users/ingenieurs/info3/11810036/search-engine/in/";
+        
+        
         boolean create = true;
-        for(int i=0;i<args.length;i++) {
-            if ("-index".equals(args[i])) {
-                indexPath = args[i+1];
-                i++;
-            } else if ("-docs".equals(args[i])) {
-                docsPath = args[i+1];
-                i++;
-            } else if ("-update".equals(args[i])) {
-                create = false;
-            }
-        }
-
-        if (docsPath == null) {
-            System.err.println("Usage: " + usage);
-            System.exit(1);
-        }
-
+        String docsPath = "/export/home/users/ingenieurs/info3/11810036/search-engine/in/";
         final Path docDir = Paths.get(docsPath);
         if (!Files.isReadable(docDir)) {
             System.out.println("Document directory '" +docDir.toAbsolutePath()+ "' does not exist or is not readable, please check the path");
             System.exit(1);
         }
-
+        
+        List<Engine> engines = AdvSearcher.enginesFeed();
+        System.out.println(new Date().toLocaleString() + ": Launching Advanced Indexer for " + engines.size() + " engines");
+        System.out.println();
+        for (Engine e : engines) {
+    	System.out.println("Indexing for " + e.getLabel());
+        String indexPath = e.getIndexPath();
         Date start = new Date();
         try {
             System.out.println("Indexing to directory '" + indexPath + "'...");
@@ -98,9 +90,10 @@ public class Indexer {
             Date end = new Date();
             System.out.println(end.getTime() - start.getTime() + " total milliseconds");
 
-        } catch (IOException e) {
-            System.out.println(" caught a " + e.getClass() +
-                    "\n with message: " + e.getMessage());
+        } catch (IOException ee) {
+            System.out.println(" caught a " + ee.getClass() +
+                    "\n with message: " + ee.getMessage());
+        }
         }
     }
 
