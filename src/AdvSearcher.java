@@ -133,7 +133,7 @@ public class AdvSearcher {
 				continue;
 			}
 			seen.put(docno, docno);
-			result += qid + docno + " " + i + " " + hits[i].score + " " + runtag + "\n";
+			result += qid + " " + docno + " " + i + " " + hits[i].score + " " + runtag + "\n";
 		}
 		return result;
 	}
