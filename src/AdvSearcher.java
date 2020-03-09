@@ -1,15 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
+import analyzers.AnalyzerA;
+import analyzers.AnalyzerM;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -17,17 +7,23 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
-import org.apache.lucene.search.similarities.*;
+import org.apache.lucene.search.similarities.BM25Similarity;
+import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
 
-import analyzers.AnalyzerA;
-import analyzers.AnalyzerM;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
-/** Simple command-line based search demo. */
+/**
+ * Simple command-line based search demo.
+ */
 public class AdvSearcher {
-	private static final String INPUT_PATH = "/home/dainer/eclipse-workspace/search-engine/in_index/";
-	private static final String OUTPUT_PATH = "/home/dainer/eclipse-workspace/search-engine/output_search/";
+	private static final String INPUT_PATH = "in_index/";
+	private static final String OUTPUT_PATH = "output_search/";
 
 	private AdvSearcher() {
 	}
@@ -53,7 +49,7 @@ public class AdvSearcher {
 	public static void main(String[] args) throws Exception {
 
 		String field = "contents";
-		String queries = "/home/dainer/eclipse-workspace/search-engine/queries/q.txt";
+		String queries = "queries/q.txt";
 		String simstring = "default";
 		List<Engine> engines = enginesFeed();
 		System.out.println(
@@ -70,9 +66,9 @@ public class AdvSearcher {
 
 			BufferedReader in = null;
 			if (queries != null) {
-				in = new BufferedReader(new InputStreamReader(new FileInputStream(queries), "UTF-8"));
+				in = new BufferedReader(new InputStreamReader(new FileInputStream(queries), StandardCharsets.UTF_8));
 			} else {
-				in = new BufferedReader(new InputStreamReader(new FileInputStream("queries"), "UTF-8"));
+				in = new BufferedReader(new InputStreamReader(new FileInputStream("queries"), StandardCharsets.UTF_8));
 			}
 			QueryParser parser = new QueryParser(field, analyzer);
 
@@ -137,7 +133,7 @@ public class AdvSearcher {
 				continue;
 			}
 			seen.put(docno, docno);
-			result += qid + " Q0 " + docno + " " + i + " " + hits[i].score + " " + runtag + "\n";
+			result += qid + docno + " " + i + " " + hits[i].score + " " + runtag + "\n";
 		}
 		return result;
 	}

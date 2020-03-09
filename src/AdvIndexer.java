@@ -1,33 +1,18 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.LongPoint;
-import org.apache.lucene.document.StringField;
-import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
-import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
-import analyzers.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
+import java.util.List;
 
 public class AdvIndexer {
 
@@ -39,7 +24,7 @@ public class AdvIndexer {
 				+ "in INDEX_PATH that can be searched with SearchFiles";
 
 		boolean create = true;
-		String docsPath = "/home/dainer/eclipse-workspace/search-engine/in/RecipeBase.xml";
+		String docsPath = "in/RecipeBase.xml";
 		final Path docDir = Paths.get(docsPath);
 		if (!Files.isReadable(docDir)) {
 			System.out.println("Document directory '" + docDir.toAbsolutePath()

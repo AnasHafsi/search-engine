@@ -1,6 +1,6 @@
-0 vegan 
-1 Hard-boiled egg 
-2 spaghetti  
-3 Apple Cider 
-4 Red Wine  
-5 Whole Eggs 
+0 vegan
+1 hamburger
+2 spaghetti
+3 Monterey
+4 Pancakes
+5 Moroccan
