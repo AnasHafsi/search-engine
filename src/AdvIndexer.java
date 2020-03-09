@@ -31,77 +31,76 @@ import analyzers.*;
 
 public class AdvIndexer {
 
-    /** Index all text files under a directory. */
-    public static void main(String[] args) {
-        String usage = "java org.apache.lucene.demo.IndexFiles"
-                + " [-index INDEX_PATH] [-docs DOCS_PATH] [-update]\n\n"
-                + "This indexes the documents in DOCS_PATH, creating a Lucene index"
-                + "in INDEX_PATH that can be searched with SearchFiles";
-        
-        
-        boolean create = true;
-        String docsPath = "/export/home/users/ingenieurs/info3/11810036/search-engine/in/RecipeBase.xml";
-        final Path docDir = Paths.get(docsPath);
-        if (!Files.isReadable(docDir)) {
-            System.out.println("Document directory '" +docDir.toAbsolutePath()+ "' does not exist or is not readable, please check the path");
-            System.exit(1);
-        }
-        
-        List<Engine> engines = AdvSearcher.enginesFeed();
-        System.out.println(new Date().toLocaleString() + ": Launching Advanced Indexer for " + engines.size() + " engines");
-        System.out.println();
-        for (Engine e : engines) {
-    	System.out.println("Indexing for " + e.getLabel());
-        String indexPath = e.getIndexPath();
-        Date start = new Date();
-        try {
-            System.out.println("Indexing to directory '" + indexPath + "'...");
+	/*
+	/** Index all text files under a directory. */
+	public static void main(String[] args) {
+		String usage = "java org.apache.lucene.demo.IndexFiles" + " [-index INDEX_PATH] [-docs DOCS_PATH] [-update]\n\n"
+				+ "This indexes the documents in DOCS_PATH, creating a Lucene index"
+				+ "in INDEX_PATH that can be searched with SearchFiles";
 
-            Directory dir = FSDirectory.open(Paths.get(indexPath));
-            Analyzer analyzer = e.getAnalyzer();
-            IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+		boolean create = true;
+		String docsPath = "/home/dainer/eclipse-workspace/search-engine/in/RecipeBase.xml";
+		final Path docDir = Paths.get(docsPath);
+		if (!Files.isReadable(docDir)) {
+			System.out.println("Document directory '" + docDir.toAbsolutePath()
+					+ "' does not exist or is not readable, please check the path");
+			System.exit(1);
+		}
 
-            if (create) {
-                // Create a new index in the directory, removing any
-                // previously indexed documents:
-                iwc.setOpenMode(OpenMode.CREATE);
-            } else {
-                // Add new documents to an existing index:
-                iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
-            }
+		List<Engine> engines = AdvSearcher.enginesFeed();
+		System.out.println(
+				new Date().toLocaleString() + ": Launching Advanced Indexer for " + engines.size() + " engines");
+		System.out.println();
+		for (Engine e : engines) {
+			System.out.println("Indexing for " + e.getLabel());
+			String indexPath = e.getIndexPath();
+			Date start = new Date();
+			try {
+				System.out.println("Indexing to directory '" + indexPath + "'...");
 
-            // Optional: for better indexing performance, if you
-            // are indexing many documents, increase the RAM
-            // buffer.  But if you do this, increase the max heap
-            // size to the JVM (eg add -Xmx512m or -Xmx1g):
-            //
-            // iwc.setRAMBufferSizeMB(256.0);
+				Directory dir = FSDirectory.open(Paths.get(indexPath));
+				Analyzer analyzer = e.getAnalyzer();
+				IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
 
-            IndexWriter writer = new IndexWriter(dir, iwc);
-            indexDocs(writer, new File(docsPath));
+				if (create) {
+					// Create a new index in the directory, removing any
+					// previously indexed documents:
+					iwc.setOpenMode(OpenMode.CREATE);
+				} else {
+					// Add new documents to an existing index:
+					iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
+				}
 
-            // NOTE: if you want to maximize search performance,
-            // you can optionally call forceMerge here.  This can be
-            // a terribly costly operation, so generally it's only
-            // worth it when your index is relatively static (ie
-            // you're done adding documents to it):
-            //
-            // writer.forceMerge(1);
+				// Optional: for better indexing performance, if you
+				// are indexing many documents, increase the RAM
+				// buffer. But if you do this, increase the max heap
+				// size to the JVM (eg add -Xmx512m or -Xmx1g):
+				//
+				// iwc.setRAMBufferSizeMB(256.0);
 
-            writer.close();
+				IndexWriter writer = new IndexWriter(dir, iwc);
+				indexDocs(writer, new File(docsPath));
 
-            Date end = new Date();
-            System.out.println(end.getTime() - start.getTime() + " total milliseconds");
+				// NOTE: if you want to maximize search performance,
+				// you can optionally call forceMerge here. This can be
+				// a terribly costly operation, so generally it's only
+				// worth it when your index is relatively static (ie
+				// you're done adding documents to it):
+				//
+				// writer.forceMerge(1);
 
-        } catch (IOException ee) {
-            System.out.println(" caught a " + ee.getClass() +
-                    "\n with message: " + ee.getMessage());
-        }
-        }
-    }
+				writer.close();
 
-	static void indexDocs(IndexWriter writer, File file)
-			throws IOException {
+				Date end = new Date();
+				System.out.println(end.getTime() - start.getTime() + " total milliseconds");
+
+			} catch (IOException ee) {
+				System.out.println(" caught a " + ee.getClass() + "\n with message: " + ee.getMessage());
+			}
+		}
+	}
+
+	static void indexDocs(IndexWriter writer, File file) throws IOException {
 		// do not try to index files that cannot be read
 		if (file.canRead()) {
 			if (file.isDirectory()) {
@@ -123,7 +122,7 @@ public class AdvIndexer {
 						writer.addDocument(doc);
 					}
 				}
-				System.out.println(countDocs);
+				System.out.println("Documents read: " + countDocs);
 			}
 		}
 	}

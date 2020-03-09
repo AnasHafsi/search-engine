@@ -34,7 +34,7 @@ public class TrecDocIterator implements Iterator<Document> {
 		try {
 			String line;
 			// (<DOCID>\s*(\S+)\s*<)|
-			Pattern docno_tag = Pattern.compile("<DOCID>\\\\s*(\\\\S+)\\\\s*<|<ID>*<");
+			Pattern docno_tag = Pattern.compile("<ID>(.+?)</ID>", Pattern.DOTALL);		
 			boolean in_doc = false;
 			while (true) {
 				line = rdr.readLine();
@@ -57,7 +57,6 @@ public class TrecDocIterator implements Iterator<Document> {
 				Matcher m = docno_tag.matcher(line);
 				if (m.find()) {
 					String docno = m.group(1);
-					System.out.println("===++>" + docno);
 					doc.add(new StringField("docno", docno, Field.Store.YES));
 				}
 
